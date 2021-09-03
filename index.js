@@ -45,10 +45,12 @@ const quesBank = [
     answer: "b",
   },
 ];
-var index = 0;
+var index = 0,
+  score = 0;
 function check() {
   if (index >= quesBank.length) {
     console.log("Thanks for playing");
+    console.log("Your score is ", score);
     rl.close();
   } else {
     question();
@@ -60,11 +62,11 @@ function question() {
     if (quesBank[index].answer.toLowerCase() == answer.toLowerCase()) {
       console.log("Right Answer!");
       index++;
+      score++;
       check();
     } else {
       console.log("Wrong Answer!");
-      console.log("Try Again!");
-      index = 0;
+      index++;
       check();
     }
   });
