@@ -1,8 +1,3 @@
-var readline = require("readline");
-var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
 const quesBank = [
   {
     question: `What is the technical term for planting seeds?
@@ -45,30 +40,23 @@ const quesBank = [
     answer: "b",
   },
 ];
-var index = 0,
-  score = 0;
-function check() {
-  if (index >= quesBank.length) {
-    console.log("Thanks for playing");
-    console.log("Your score is ", score);
-    rl.close();
+var readlineSync = require("readline-sync");
+var username = readlineSync.question("What is your name? ");
+console.log("Welcome", username, "to the gardening quiz.");
+console.log("-----------------------------------------------");
+var score = 0;
+
+function questions(ques, ans) {
+  var userAnswer = readlineSync.question(ques);
+  if (ans.toLowerCase() == userAnswer.toLowerCase()) {
+    console.log("Right Answer!");
+    score++;
   } else {
-    question();
+    console.log("Wrong Answer!");
   }
 }
-function question() {
-  rl.question(quesBank[index].question, (answer) => {
-    console.log(`You answered : ${answer}`);
-    if (quesBank[index].answer.toLowerCase() == answer.toLowerCase()) {
-      console.log("Right Answer!");
-      index++;
-      score++;
-      check();
-    } else {
-      console.log("Wrong Answer!");
-      index++;
-      check();
-    }
-  });
+for (var i = 0; i < quesBank.length; i++) {
+  questions(quesBank[i].question, quesBank[i].answer);
 }
-question();
+console.log("Your Score is: ", score);
+console.log("Thanks for playing");
